@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+- name: gatekeeper
+  version: 3.11.0
+  repo: https://open-policy-agent.github.io/gatekeeper/charts
+  valuesFile: values.yaml
+  namespace: gatekeeper-system
+  releaseName: gatekeeper
