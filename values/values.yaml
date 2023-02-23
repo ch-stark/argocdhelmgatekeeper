@@ -75,7 +75,7 @@ postInstall:
       verbs:
       - use
     image:
-      repository: quay.io/thomasmckay/gatekeeper
+      repository: openpolicyagent/gatekeeper-crds
       tag: crds
       pullPolicy: Always
       pullSecrets: []
