@@ -7,8 +7,6 @@ spec:
     repoURL: https://github.com/ch-stark/argocdhelmgatekeeper
     targetRevision: main
     path: values
-    kustomize:
-      enableHelm: true   # This appends --enable-helm to the kustomize build command
   destination:
     namespace: default
     server: https://kubernetes.default.svc
