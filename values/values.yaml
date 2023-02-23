@@ -37,9 +37,9 @@ postUpgrade:
   labelNamespace:
     enabled: false
     image:
-      repository: quay.io/thomasmckay/gatekeeper
-      tag: crds
-      pullPolicy: Always
+      repository: openpolicyagent/gatekeeper-crds
+      tag: v3.12.0-beta.0
+      pullPolicy: IfNotPresent
       pullSecrets: []
     extraNamespaces: []
     podSecurity: ["pod-security.kubernetes.io/audit=restricted",
@@ -48,6 +48,7 @@ postUpgrade:
       "pod-security.kubernetes.io/warn-version=latest",
       "pod-security.kubernetes.io/enforce=restricted",
       "pod-security.kubernetes.io/enforce-version=v1.24"]
+    extraAnnotations: {}
   affinity: {}
   tolerations: []
   nodeSelector: {kubernetes.io/os: linux}
