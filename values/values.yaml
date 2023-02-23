@@ -3,7 +3,7 @@ controllerManager:
   - apiGroups:
     - security.openshift.io
     resourceNames:
-    - anyuid
+    - nonroot-v2
     resources:
     - securitycontextconstraints
     verbs:
@@ -14,7 +14,7 @@ upgradeCRDs:
   - apiGroups:
     - security.openshift.io
     resourceNames:
-    - anyuid
+    - nonroot-v2
     resources:
     - securitycontextconstraints
     verbs:
@@ -26,7 +26,7 @@ postInstall:
     - apiGroups:
       - security.openshift.io
       resourceNames:
-      - anyuid
+      - nonroot-v2
       resources:
       - securitycontextconstraints
       verbs:
