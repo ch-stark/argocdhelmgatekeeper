@@ -37,9 +37,9 @@ postUpgrade:
   labelNamespace:
     enabled: false
     image:
-      repository: openpolicyagent/gatekeeper-crds
-      tag: v3.12.0-beta.0
-      pullPolicy: IfNotPresent
+      repository: quay.io/thomasmckay/gatekeeper
+      tag: crds
+      pullPolicy: Always
       pullSecrets: []
     extraNamespaces: []
     podSecurity: ["pod-security.kubernetes.io/audit=restricted",
@@ -48,7 +48,6 @@ postUpgrade:
       "pod-security.kubernetes.io/warn-version=latest",
       "pod-security.kubernetes.io/enforce=restricted",
       "pod-security.kubernetes.io/enforce-version=v1.24"]
-    extraAnnotations: {}
   affinity: {}
   tolerations: []
   nodeSelector: {kubernetes.io/os: linux}
@@ -65,11 +64,19 @@ postUpgrade:
 postInstall:
   labelNamespace:
     enabled: true
-    extraRules: []
+    extraRules:
+    - apiGroups:
+      - security.openshift.io
+      resourceNames:
+      - anyuid
+      resources:
+      - securitycontextconstraints
+      verbs:
+      - use
     image:
-      repository: openpolicyagent/gatekeeper-crds
-      tag: v3.12.0-beta.0
-      pullPolicy: IfNotPresent
+      repository: quay.io/thomasmckay/gatekeeper
+      tag: crds
+      pullPolicy: Always
       pullSecrets: []
     extraNamespaces: []
     podSecurity: ["pod-security.kubernetes.io/audit=restricted",
@@ -78,7 +85,6 @@ postInstall:
       "pod-security.kubernetes.io/warn-version=latest",
       "pod-security.kubernetes.io/enforce=restricted",
       "pod-security.kubernetes.io/enforce-version=v1.24"]
-    extraAnnotations: {}
   probeWebhook:
     enabled: true
     image:
@@ -103,12 +109,20 @@ postInstall:
     runAsUser: 1000
 preUninstall:
   deleteWebhookConfigurations:
-    extraRules: []
+    extraRules:
+    - apiGroups:
+      - security.openshift.io
+      resourceNames:
+      - anyuid
+      resources:
+      - securitycontextconstraints
+      verbs:
+      - use
     enabled: false
     image:
-      repository: openpolicyagent/gatekeeper-crds
-      tag: v3.12.0-beta.0
-      pullPolicy: IfNotPresent
+      repository: quay.io/thomasmckay/gatekeeper
+      tag: crds
+      pullPolicy: Always
       pullSecrets: []
   affinity: {}
   tolerations: []
@@ -124,16 +138,16 @@ preUninstall:
     runAsNonRoot: true
     runAsUser: 1000
 image:
-  repository: openpolicyagent/gatekeeper
-  crdRepository: openpolicyagent/gatekeeper-crds
-  release: v3.12.0-beta.0
-  pullPolicy: IfNotPresent
+  repository: quay.io/thomasmckay/gatekeeper
+  crdRepository: quay.io/thomasmckay/gatekeeper
+  release: crds
+  pullPolicy: Always
   pullSecrets: []
 podAnnotations: {}
 podLabels: {}
 podCountLimit: "100"
 secretAnnotations: {}
-enableRuntimeDefaultSeccompProfile: true
+enableRuntimeDefaultSeccompProfile: false
 controllerManager:
   exemptNamespaces: []
   exemptNamespacePrefixes: []
@@ -182,7 +196,15 @@ controllerManager:
     fsGroup: 999
     supplementalGroups:
       - 999
-  extraRules: []
+  extraRules:
+  - apiGroups:
+    - security.openshift.io
+    resourceNames:
+    - anyuid
+    resources:
+    - securitycontextconstraints
+    verbs:
+    - use
 audit:
   hostNetwork: false
   dnsPolicy: ClusterFirst
@@ -215,7 +237,15 @@ audit:
     supplementalGroups:
       - 999
   writeToRAMDisk: false
-  extraRules: []
+  extraRules:
+  - apiGroups:
+    - security.openshift.io
+    resourceNames:
+    - anyuid
+    resources:
+    - securitycontextconstraints
+    verbs:
+    - use
 crds:
   affinity: {}
   tolerations: []
@@ -239,7 +269,15 @@ psp:
   enabled: true
 upgradeCRDs:
   enabled: true
-  extraRules: []
+  extraRules:
+  - apiGroups:
+    - security.openshift.io
+    resourceNames:
+    - anyuid
+    resources:
+    - securitycontextconstraints
+    verbs:
+    - use
 rbac:
   create: true
 externalCertInjection:
