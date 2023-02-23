@@ -21,7 +21,7 @@ upgradeCRDs:
     - use
 
 postInstall:
-  labelNamespace: false
+  labelNamespace: true
     extraRules:
     - apiGroups:
       - security.openshift.io
